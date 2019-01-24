@@ -25,8 +25,10 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<!-- <section>Slide 1</section> -->
+				<!-- <section>Slide 2</section> -->
+				<section data-markdown="containers-101.md" data-separator-vertical="^\r?\n--\r?\n$" data-separator-notes="^Note:">
+                </section>
 			</div>
 		</div>
 
@@ -37,6 +39,12 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+				// Specify the average time in seconds that you think you will spend
+				// presenting each slide. This is used to show a pacing timer in the
+				// speaker view
+				defaultTiming: 120,
+				pdfSeparateFragments: false,
+				pdfMaxPagesPerSlide: 1,
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
