@@ -1,8 +1,5 @@
 # Make your life (and analysis) easier with containers
 
-Note:
-Introduction
-
 <!-- .slide: data-timing="10" -->
 
 --
@@ -88,66 +85,6 @@ Note:
 
 ---
 
-## Using Containers
-
-Note:
-- These are pre-recorded
-
-<!-- .slide: data-timing="2" -->
-
---
-
-## Demo: Command line app
-
-
-Note:
-- BioContainer Example: https://biocontainers.pro/docs/101/running-example/
-```bash
-cd ~/docker_bind_root/blast
-docker build -t jpistorius/blast .
-docker run jpistorius/blast:latest blastp -help
-wget http://www.uniprot.org/uniprot/P04156.fasta
-curl -O ftp://ftp.ncbi.nih.gov/refseq/D_rerio/mRNA_Prot/zebrafish.1.protein.faa.gz
-gunzip zebrafish.1.protein.faa.gz
-docker run -v $PWD:/data/ jpistorius/blast:latest makeblastdb -in zebrafish.1.protein.faa -dbtype prot
-docker run -v $PWD:/data/ jpistorius/blast:latest blastp -query P04156.fasta -db zebrafish.1.protein.faa -out results.txt
-less results.txt 
-```
-
-<!-- .slide: data-timing="300" -->
-
---
-
-## Demo: Web app
-
-
-Note:
-- https://github.com/plyte/blastn-jupyter-docker
-```bash
-git clone https://github.com/plyte/blastn-jupyter-docker.git
-cd cd blastn-jupyter-docker/
-docker build -t jpistorius/blastn-jupyter-docker .
-docker run -p 8888:8888 jpistorius/blastn-jupyter-docker
-```
-- Explain local IP & port
-
-<!-- .slide: data-timing="300" -->
-
----
-
-## CyVerse support for containers
-
-1. Command line (Atmosphere)  <!-- .element: class="fragment" data-fragment-index="1" -->
-2. Interactive apps (VICE)  <!-- .element: class="fragment" data-fragment-index="2" -->
-3. HPC (XSEDE & OSG) <!-- .element: class="fragment" data-fragment-index="3" -->
-
-Note:
-- ezd/ezs
-
-<!-- .slide: data-timing="60" -->
-
----
-
 ## Concepts & Terms
 
 Note:
@@ -186,7 +123,6 @@ Executable instructions (script) for:  <!-- .element: class="fragment" data-frag
 Note:
 - The entry point is executed
 - From Matt Rich's Singularity tutorial: The running container will have exactly the environment defined in the image.
-- "Bind mounts" make the host's filesystem accessible inside the container.
 
 <!-- .slide: data-timing="30" -->
 
@@ -228,6 +164,9 @@ Do not put your data in the image!  <!-- .element: class="fragment" data-fragmen
 - Local data: 'Mount' it into a container when you start it  <!-- .element: class="fragment" data-fragment-index="2" -->
 - Remote data: Pull into the container once it's running (e.g. CyVerse Data Store, S3, etc.)  <!-- .element: class="fragment" data-fragment-index="3" -->
 
+Note:
+- "Bind mounts" make the host's filesystem accessible inside the container.
+
 <!-- .slide: data-timing="30" -->
 
 --
@@ -250,6 +189,74 @@ Note:
 - Singularity Hub and Docker Hub
 
 <!-- .slide: data-timing="20" -->
+
+---
+
+## Using Containers
+
+Note:
+- These are pre-recorded
+
+<!-- .slide: data-timing="2" -->
+
+--
+
+## Demo: Command line app
+
+```bash
+mkdir -p ~/blast
+cd ~/blast
+docker pull biocontainers/blast:v2.2.31_cv2
+docker run biocontainers/blast:v2.2.31_cv2 blastp -help
+wget http://www.uniprot.org/uniprot/P04156.fasta
+curl -O ftp://ftp.ncbi.nih.gov/\
+refseq/D_rerio/mRNA_Prot/zebrafish.1.protein.faa.gz
+gunzip zebrafish.1.protein.faa.gz
+docker run -v $PWD:/data/ biocontainers/blast:v2.2.31_cv2 \
+	makeblastdb -in zebrafish.1.protein.faa -dbtype prot
+docker run -v $PWD:/data/ biocontainers/blast:v2.2.31_cv2 \
+	blastp -query P04156.fasta -db zebrafish.1.protein.faa \
+	-out results.txt
+cat results.txt 
+```
+
+Note:
+- See BioContainer Example: https://biocontainers.pro/docs/101/running-example/
+- The above commands assumes that you have Docker installed
+
+<!-- .slide: data-timing="300" -->
+
+--
+
+## Demo: Web app (Jupyter)
+
+```bash
+cd ~
+git clone https://github.com/plyte/blastn-jupyter-docker.git
+cd blastn-jupyter-docker/
+docker build --tag blastn-jupyter-docker:local .
+docker run -p 8888:8888 blastn-jupyter-docker:local
+```
+
+Note:
+- See example: https://github.com/plyte/blastn-jupyter-docker
+- Explain local IP & port
+
+<!-- .slide: data-timing="300" -->
+
+---
+
+## CyVerse support for containers
+
+1. Command line (Atmosphere)  <!-- .element: class="fragment" data-fragment-index="1" -->
+2. Interactive apps (VICE)  <!-- .element: class="fragment" data-fragment-index="2" -->
+3. HPC (XSEDE & OSG) <!-- .element: class="fragment" data-fragment-index="3" -->
+
+Note:
+- On Atmosphere run: `ezd` or `ezs`
+- First will install Docker, the second Singularity
+
+<!-- .slide: data-timing="60" -->
 
 ---
 
@@ -281,11 +288,9 @@ Note:
 - [CyVerse Container Camp materials](https://cyverse-container-camp-workshop-2018.readthedocs-hosted.com/en/latest/)
 - [Reproducible research with containers](http://typingducks.com/blog/reproducible_research_with_containers/)
 - [Upendra's Cybercarpentry workshop notes](https://cyverse-cybercarpentry-container-workshop-2018.readthedocs-hosted.com/en/latest/)
+- [Tyson Swetnam's Container Camp Presentation](https://gitpitch.com/tyson-swetnam/cc-camp)
 - [Matthew Rich's Singularity workshop](https://nuitrcs.github.io/singularity-workshop/)
 - [BioContainers](https://biocontainers.pro/)
-
-Note:
-- BioContainer Example: https://biocontainers.pro/docs/101/running-example/
 
 <!-- .slide: data-timing="10" -->
 
