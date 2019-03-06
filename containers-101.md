@@ -1,4 +1,4 @@
-# Make your life (and analysis) easier with containers
+# Introduction to Docker
 
 <!-- .slide: data-timing="10" -->
 
@@ -6,9 +6,10 @@
 
 ## Audience
 
-- Are you a biologist?  <!-- .element: class="fragment" data-fragment-index="1" -->
-- Have you heard of Docker?  <!-- .element: class="fragment" data-fragment-index="2" -->
-- Not sure where to start?  <!-- .element: class="fragment" data-fragment-index="3" -->
+- Are you a researcher?  <!-- .element: class="fragment" data-fragment-index="1" -->
+- (or Research Software Engineer)  <!-- .element: class="fragment" data-fragment-index="2" -->
+- Have you heard of Docker?  <!-- .element: class="fragment" data-fragment-index="3" -->
+- Not sure where to start?  <!-- .element: class="fragment" data-fragment-index="4" -->
 
 <!-- .slide: data-timing="20" -->
 
@@ -104,7 +105,7 @@ A self-contained, read-only 'snapshot' of your applications and packages, with a
 
 --
 
-## Dockerfile (or Singularity recipe)
+## Dockerfile
 
 Executable instructions (script) for:  <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -144,7 +145,7 @@ The reason they made a separate server and client is so that you can have the se
 
 ## Singularity
 
-A way to run containers on HPC  <!-- .element: class="fragment" data-fragment-index="1" -->
+A way to run containers on HPC/OSG  <!-- .element: class="fragment" data-fragment-index="1" -->
 
 <span>Find out more: <https://www.sylabs.io/singularity/></span>  <!-- .element: class="fragment" data-fragment-index="2" -->
 
@@ -152,6 +153,7 @@ Note:
 - Because of computer security reasons HPC folks usually don't allow Docker
 - It is easy to create Singularity images from Docker images
 - With Singularity there is no separate server and client
+- Conceptually simpler than Docker
 
 <!-- .slide: data-timing="20" -->
 
@@ -161,10 +163,13 @@ Note:
 
 Do not put your data in the image!  <!-- .element: class="fragment" data-fragment-index="1" -->
 
-- Local data: 'Mount' it into a container when you start it  <!-- .element: class="fragment" data-fragment-index="2" -->
-- Remote data: Pull into the container once it's running (e.g. CyVerse Data Store, S3, etc.)  <!-- .element: class="fragment" data-fragment-index="3" -->
+1. Local data  <!-- .element: class="fragment" data-fragment-index="2" -->
+	- Volumes  <!-- .element: class="fragment" data-fragment-index="3" -->
+	- Bind  <!-- .element: class="fragment" data-fragment-index="4" -->
+2. Remote data: Pull into the container once it's running (e.g. CyVerse Data Store, S3, etc.)  <!-- .element: class="fragment" data-fragment-index="5" -->
 
 Note:
+- Volumes are the recommended way to expose local data to containers
 - "Bind mounts" make the host's filesystem accessible inside the container.
 
 <!-- .slide: data-timing="30" -->
@@ -186,16 +191,13 @@ Talk to us. There are a few options, and it depends on what you need.  <!-- .ele
 Image registries  <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Note:
-- Singularity Hub and Docker Hub
+- Docker Hub and Singularity Hub
 
 <!-- .slide: data-timing="20" -->
 
 ---
 
 ## Using Containers
-
-Note:
-- These are pre-recorded
 
 <!-- .slide: data-timing="2" -->
 
@@ -204,24 +206,11 @@ Note:
 ## Demo: Command line app
 
 ```bash
-mkdir -p ~/blast
-cd ~/blast
-docker pull biocontainers/blast:v2.2.31_cv2
-docker run biocontainers/blast:v2.2.31_cv2 blastp -help
-wget http://www.uniprot.org/uniprot/P04156.fasta
-curl -O ftp://ftp.ncbi.nih.gov/\
-refseq/D_rerio/mRNA_Prot/zebrafish.1.protein.faa.gz
-gunzip zebrafish.1.protein.faa.gz
-docker run -v $PWD:/data/ biocontainers/blast:v2.2.31_cv2 \
-	makeblastdb -in zebrafish.1.protein.faa -dbtype prot
-docker run -v $PWD:/data/ biocontainers/blast:v2.2.31_cv2 \
-	blastp -query P04156.fasta -db zebrafish.1.protein.faa \
-	-out results.txt
-cat results.txt 
+echo See RTD
 ```
 
 Note:
-- See BioContainer Example: https://biocontainers.pro/docs/101/running-example/
+- See BioContainer Example: https://github.com/CyVerse-learning-materials/container_camp_workshop_2019/tree/master/examples
 - The above commands assumes that you have Docker installed
 
 <!-- .slide: data-timing="300" -->
@@ -231,15 +220,10 @@ Note:
 ## Demo: Web app (Jupyter)
 
 ```bash
-cd ~
-git clone https://github.com/plyte/blastn-jupyter-docker.git
-cd blastn-jupyter-docker/
-docker build --tag blastn-jupyter-docker:local .
-docker run -p 8888:8888 blastn-jupyter-docker:local
+echo See RTD
 ```
 
 Note:
-- See example: https://github.com/plyte/blastn-jupyter-docker
 - Explain local IP & port
 
 <!-- .slide: data-timing="300" -->
@@ -269,43 +253,18 @@ Note:
 
 --
 
-## Next time
-
-- How to build containers  <!-- .element: class="fragment" data-fragment-index="1" -->
-- Running on different platforms  <!-- .element: class="fragment" data-fragment-index="2" -->
-- Science applications  <!-- .element: class="fragment" data-fragment-index="3" -->
-
-<!-- .slide: data-timing="20" -->
-
---
-
 ## Links & references
 
 - [Docker](https://www.docker.com/)
 - [Singularity](https://www.sylabs.io/singularity/)
 - [Play with Docker Classroom](https://training.play-with-docker.com/)
 - [Katacode - Learn Docker](https://www.katacoda.com/courses/docker/)
-- [CyVerse Container Camp materials](https://cyverse-container-camp-workshop-2018.readthedocs-hosted.com/en/latest/)
+- [CyVerse Container Camp materials](https://cyverse-container-camp-workshop-2019.readthedocs-hosted.com/)
 - [Reproducible research with containers](http://typingducks.com/blog/reproducible_research_with_containers/)
 - [Upendra's Cybercarpentry workshop notes](https://cyverse-cybercarpentry-container-workshop-2018.readthedocs-hosted.com/en/latest/)
 - [Tyson Swetnam's Container Camp Presentation](https://gitpitch.com/tyson-swetnam/cc-camp)
 - [Matthew Rich's Singularity workshop](https://nuitrcs.github.io/singularity-workshop/)
 - [BioContainers](https://biocontainers.pro/)
-
-<!-- .slide: data-timing="10" -->
-
---
-
-## Thanks!
-
-- Nirav Merchant
-- Upendra Devisetty 
-- Tyson Swetnam
-- Blake Joyce
-- Eric Lyons
-- Ariella Gladstein
-- Tina Lee
-- Shelley Littin
 
 <!-- .slide: data-timing="10" -->
 
