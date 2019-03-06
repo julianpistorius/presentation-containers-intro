@@ -67,7 +67,16 @@ New tech like containers  <!-- .element: class="fragment" data-fragment-index="4
 
 --
 
-![XKCD: Python Environment](python_environment_2x.png "XKCD Python Environment")   <!-- .element height="500" width="500" style="border: 0; background: None; box-shadow: None" -->
+![XKCD: Python Environment](python_environment_2x.png "XKCD: Python Environment")   <!-- .element height="500" width="500" style="border: 0; background: None; box-shadow: None" -->
+
+<!-- .slide: data-timing="30" -->
+
+Note:
+- https://xkcd.com/1987/
+
+--
+
+![XKCD: Hell](hell.png "XKCD: Hell")   <!-- .element height="500" width="500" style="border: 0; background: None; box-shadow: None" -->
 
 <!-- .slide: data-timing="30" -->
 
