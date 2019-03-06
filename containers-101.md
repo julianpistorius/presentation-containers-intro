@@ -10,6 +10,7 @@
 - (or Research Software Engineer)  <!-- .element: class="fragment" data-fragment-index="2" -->
 - Have you heard of Docker?  <!-- .element: class="fragment" data-fragment-index="3" -->
 - Not sure where to start?  <!-- .element: class="fragment" data-fragment-index="4" -->
+- Not sure about best practices?  <!-- .element: class="fragment" data-fragment-index="5" -->
 
 <!-- .slide: data-timing="20" -->
 
@@ -63,6 +64,15 @@ New tech like containers  <!-- .element: class="fragment" data-fragment-index="4
 - Fragile, hard-to-reproduce analyses  <!-- .element: class="fragment" data-fragment-index="3" -->
 
 <!-- .slide: data-timing="30" -->
+
+--
+
+![XKCD: Python Environment](python_environment_2x.png "XKCD Python Environment")   <!-- .element height="500" width="500" style="border: 0; background: None; box-shadow: None" -->
+
+<!-- .slide: data-timing="30" -->
+
+Note:
+- https://xkcd.com/1987/
 
 --
 
@@ -143,6 +153,18 @@ The reason they made a separate server and client is so that you can have the se
 
 --
 
+![Layers 01](docker-layers-01.png "Layers 01")   <!-- .element height="100%" width="100%" style="border: 0; background: None; box-shadow: None" -->
+
+<!-- .slide: data-timing="30" -->
+
+--
+
+![Layers 02](docker-layers-02.png "Layers 02")   <!-- .element height="100%" width="100%" style="border: 0; background: None; box-shadow: None" -->
+
+<!-- .slide: data-timing="30" -->
+
+--
+
 ## Singularity
 
 A way to run containers on HPC/OSG  <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -170,6 +192,7 @@ Do not put your data in the image!  <!-- .element: class="fragment" data-fragmen
 
 Note:
 - Volumes are the recommended way to expose local data to containers
+- Tyson will show us how to use a volume
 - "Bind mounts" make the host's filesystem accessible inside the container.
 
 <!-- .slide: data-timing="30" -->
